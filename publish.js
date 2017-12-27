@@ -559,7 +559,9 @@ exports.publish = function(taffyData, opts, tutorials) {
     staticFiles.forEach(function(fileName) {
         var toDir = fs.toDir( fileName.replace(fromDir, outdir) );
         fs.mkPath(toDir);
-        fs.copyFileSync(fileName, toDir);
+        // must specify the filename in the path now
+        var toFilePath = toDir + path.basename(fileName);
+        fs.copyFileSync(fileName, toFilePath);
     });
 
     // copy user-specified static files to outdir
